@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "books")
 @Data
@@ -20,6 +22,7 @@ public class BookEntity {
     Long id;
 
     String title;
+    LocalDate releaseDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     AuthorEntity author;

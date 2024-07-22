@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import com.trinity.bookstore.dto.BookDto;
 import com.trinity.bookstore.entity.AuthorEntity;
+import com.trinity.bookstore.exception.AppException;
+import com.trinity.bookstore.exception.ErrorCode;
 import com.trinity.bookstore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,9 @@ public class BookServiceImpl implements BookService {
         Optional<AuthorEntity> author =
                 authorRepository.findByFullNameAndDob(request.getAuthor().getFullName(), request.getAuthor().getDob());
         if (author.isPresent()) {
+            if (bookRepository.existsByTitle(request.getTitle())) {
+                throw new AppException(ErrorCode.BOOK_EXISTED);
+            }
             book.setAuthor(author.get());
         }
 
