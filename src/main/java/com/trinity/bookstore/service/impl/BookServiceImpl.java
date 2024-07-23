@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.trinity.bookstore.dto.BookDto;
-import com.trinity.bookstore.entity.AuthorEntity;
-import com.trinity.bookstore.exception.AppException;
-import com.trinity.bookstore.exception.ErrorCode;
-import com.trinity.bookstore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import com.trinity.bookstore.dto.BookDto;
+import com.trinity.bookstore.entity.AuthorEntity;
 import com.trinity.bookstore.entity.BookEntity;
+import com.trinity.bookstore.exception.AppException;
+import com.trinity.bookstore.exception.ErrorCode;
 import com.trinity.bookstore.mapper.BookMapper;
+import com.trinity.bookstore.repository.AuthorRepository;
 import com.trinity.bookstore.repository.BookRepository;
 import com.trinity.bookstore.service.BookService;
 
@@ -32,8 +32,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto createBook(BookDto request) {
         BookEntity book = bookMapper.toBookEntity(request);
-        Optional<AuthorEntity> author =
-                authorRepository.findByFullNameAndDob(request.getAuthor().getFullName(), request.getAuthor().getDob());
+        Optional<AuthorEntity> author = authorRepository.findByFullNameAndDob(
+                request.getAuthor().getFullName(), request.getAuthor().getDob());
         if (author.isPresent()) {
             if (bookRepository.existsByTitle(request.getTitle())) {
                 throw new AppException(ErrorCode.BOOK_EXISTED);
@@ -42,7 +42,6 @@ public class BookServiceImpl implements BookService {
         }
 
         book = bookRepository.save(book);
-
 
         return bookMapper.toBookDto(book);
     }
@@ -53,5 +52,4 @@ public class BookServiceImpl implements BookService {
 
         return books.stream().map(bookMapper::toBookDto).collect(Collectors.toList());
     }
-
 }

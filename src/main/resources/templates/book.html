@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+</head>
+<body>
+    <header class="d-inline-block">
+        <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Book Store</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/authorList">Author</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-5">
+        <br>
+        <h1 class="text-center">DANH MỤC SÁCH</h1>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Thêm sách
+        </button>
+        <table class="table table-striped mt-3 table-responsive">
+            <thead>
+            <tr>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Ngày xuất bản</th>
+                <th scope="col">Tác giả</th>
+            </tr>
+            </thead>
+            <tbody id="root">
+            </tbody>
+        </table>
+        <br>
+        <br>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm sách</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h5 id="success-message" class="text-info"></h5>
+                            <h5 id="fail-message" class="text-danger"></h5>
+                            <div class="mb-2">
+                                <label for="title" class="form-label">Tên sách</label>
+                                <input type="text" class="form-control" id="title" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="releaseDate" class="form-label">Ngày xuất bản</label>
+                                <input type="text" class="form-control" id="releaseDate" required placeholder="yyyy-MM-dd">
+                            </div>
+                            <div class="mb-2">
+                                <label for="fullName" class="form-label">Tên tác giả</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="dob" class="form-label">Ngày sinh tác giả</label>
+                                <input type="text" class="form-control" id="dob" required placeholder="yyyy-MM-dd">
+                            </div>
+                            <div class="mb-2">
+                                <label for="address" class="form-label">Địa chỉ tác giả</label>
+                                <input type="text" class="form-control" id="address" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="/" id="reload">Quay về trang chủ</a>
+                        <button type="button" class="btn btn-primary" id="button" onclick="createBook()">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top text-center pt-3 pb-3 fixed-bottom bg-secondary">
+        <div class="">
+            &copy; 2024 - Book Store
+        </div>
+    </footer>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js" ></script>
+    <script src="/js/book.js" ></script>
+</body>
+</html>

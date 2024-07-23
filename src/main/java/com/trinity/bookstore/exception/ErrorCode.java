@@ -15,7 +15,7 @@ public enum ErrorCode {
     INVALID_KEY(1006, "Invalid key", HttpStatus.BAD_REQUEST),
     TITLE_KEY(1007, "Title field is required", HttpStatus.BAD_REQUEST),
     FULL_NAME_KEY(1008, "Full name field is required", HttpStatus.BAD_REQUEST),
-    DOB_KEY(1009, "Dob field is required, yyyy-MM-dd", HttpStatus.BAD_REQUEST),
+    DATE_KEY(1009, "Field is required, yyyy-MM-dd", HttpStatus.BAD_REQUEST),
     ADDRESS_KEY(1010, "Address field is required", HttpStatus.BAD_REQUEST),
     DATE_INCORRECT_FORMAT(1011, "Date is not incorrect format", HttpStatus.BAD_REQUEST),
     ;

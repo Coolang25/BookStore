@@ -1,20 +1,19 @@
 package com.trinity.bookstore.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.trinity.bookstore.exception.AppException;
-import com.trinity.bookstore.exception.ErrorCode;
-import com.trinity.bookstore.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import com.trinity.bookstore.dto.AuthorDto;
 import com.trinity.bookstore.entity.AuthorEntity;
+import com.trinity.bookstore.entity.BookEntity;
+import com.trinity.bookstore.exception.AppException;
+import com.trinity.bookstore.exception.ErrorCode;
 import com.trinity.bookstore.mapper.AuthorMapper;
 import com.trinity.bookstore.repository.AuthorRepository;
+import com.trinity.bookstore.repository.BookRepository;
 import com.trinity.bookstore.service.AuthorService;
 
 import lombok.AccessLevel;
@@ -31,8 +30,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDto createAuthor(AuthorDto request) {
-        Optional<AuthorEntity> author =
-                authorRepository.findByFullNameAndDob(request.getFullName(), request.getDob());
+        Optional<AuthorEntity> author = authorRepository.findByFullNameAndDob(request.getFullName(), request.getDob());
         if (author.isPresent()) {
             throw new AppException(ErrorCode.AUTHOR_EXISTED);
         }
@@ -41,18 +39,17 @@ public class AuthorServiceImpl implements AuthorService {
         return authorMapper.toAuthorDto(author1);
     }
 
-    @Override
-    public List<AuthorDto> getAllAuthors() {
-        List<AuthorEntity> authors = authorRepository.findAll();
+    //    @Override
+    //    public List<AuthorDto> getAllAuthors() {
+    //        List<AuthorEntity> authors = authorRepository.findAll();
+    //
+    //        return authors.stream().map(authorMapper::toAuthorDto).collect(Collectors.toList());
+    //    }
 
-        return authors.stream().map(authorMapper::toAuthorDto).collect(Collectors.toList());
-    }
-
     @Override
-    public Set<AuthorDto> getAllAuthorsHasBook() {
-        Set<AuthorEntity> authors = new HashSet<>();
-        bookRepository.findAll().forEach((book) -> authors.add(book.getAuthor()));
+    public Set<AuthorDto> getAllAuthorsOwnBooks() {
+        Set<AuthorEntity> authors =
+                bookRepository.findAll().stream().map(BookEntity::getAuthor).collect(Collectors.toSet());
         return authors.stream().map(authorMapper::toAuthorDto).collect(Collectors.toSet());
     }
-
 }
