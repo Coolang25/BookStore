@@ -1,12 +1,12 @@
 package com.trinity.bookstore.exception;
 
+import com.trinity.bookstore.dto.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.trinity.bookstore.dto.ApiResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

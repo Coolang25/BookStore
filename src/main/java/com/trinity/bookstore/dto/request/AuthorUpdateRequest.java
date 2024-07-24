@@ -1,21 +1,19 @@
-package com.trinity.bookstore.dto;
-
-import java.time.LocalDate;
+package com.trinity.bookstore.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthorDto {
+public class AuthorUpdateRequest {
     @NotBlank(message = "FULL_NAME_KEY")
     String fullName;
 

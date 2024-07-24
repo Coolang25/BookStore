@@ -1,4 +1,4 @@
-package com.trinity.bookstore.dto;
+package com.trinity.bookstore.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

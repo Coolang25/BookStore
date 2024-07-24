@@ -17,7 +17,11 @@ public enum ErrorCode {
     FULL_NAME_KEY(1008, "Full name field is required", HttpStatus.BAD_REQUEST),
     DATE_KEY(1009, "Field is required, yyyy-MM-dd", HttpStatus.BAD_REQUEST),
     ADDRESS_KEY(1010, "Address field is required", HttpStatus.BAD_REQUEST),
-    DATE_INCORRECT_FORMAT(1011, "Date is not incorrect format", HttpStatus.BAD_REQUEST),
+    AVAILABLE_KEY(1011, "Available field is required", HttpStatus.BAD_REQUEST),
+    QUANTITY_KEY(1012, "Quantity field is required", HttpStatus.BAD_REQUEST),
+    DATE_INCORRECT_FORMAT(1013, "Date is not incorrect format", HttpStatus.BAD_REQUEST),
+    BOOK(1013, "Date is not incorrect format", HttpStatus.BAD_REQUEST),
+
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

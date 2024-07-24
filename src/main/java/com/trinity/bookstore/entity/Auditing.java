@@ -1,27 +1,29 @@
+
 package com.trinity.bookstore.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.*;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "books")
+@Table(name = "audits")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BookEntity {
+public class Auditing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String title;
-    LocalDate releaseDate;
-
     @ManyToOne(cascade = CascadeType.ALL)
-    AuthorEntity author;
+    User user;
+
+    String action; //ENUM('CREATE', 'UPDATE', 'DELETE'),
+    String table_name;
+    String data;
+    LocalDateTime created_at;
 }

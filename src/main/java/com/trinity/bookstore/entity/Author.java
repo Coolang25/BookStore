@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthorEntity {
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

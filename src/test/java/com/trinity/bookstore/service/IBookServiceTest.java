@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.trinity.bookstore.dto.response.BookResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,20 +15,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 
-import com.trinity.bookstore.dto.AuthorDto;
-import com.trinity.bookstore.dto.BookDto;
-import com.trinity.bookstore.entity.AuthorEntity;
-import com.trinity.bookstore.entity.BookEntity;
+import com.trinity.bookstore.dto.request.AuthorCreationRequest;
+import com.trinity.bookstore.dto.request.BookCreationRequest;
+import com.trinity.bookstore.entity.Author;
+import com.trinity.bookstore.entity.Book;
 import com.trinity.bookstore.exception.AppException;
 import com.trinity.bookstore.repository.AuthorRepository;
 import com.trinity.bookstore.repository.BookRepository;
 
 @SpringBootTest
 @TestPropertySource("/test.properties")
-public class BookServiceTest {
+public class IBookServiceTest {
 
     @Autowired
-    BookService bookService;
+    IBookService iBookService;
 
     @MockBean
     AuthorRepository authorRepository;
@@ -35,46 +36,46 @@ public class BookServiceTest {
     @MockBean
     BookRepository bookRepository;
 
-    private AuthorDto authorDto;
-    private BookDto request;
-    private AuthorEntity authorEntity;
-    private BookEntity book1;
-    private BookEntity book2;
-    List<BookEntity> bookEntities;
+    private AuthorCreationRequest authorDto;
+    private BookCreationRequest request;
+    private Author author;
+    private Book book1;
+    private Book book2;
+    List<Book> bookEntities;
 
     @BeforeEach
     private void initData() {
-        authorDto = AuthorDto.builder()
+        authorDto = AuthorCreationRequest.builder()
                 .fullName("Trinh Trong Quat")
                 .dob(LocalDate.parse("1999-11-25"))
                 .address("HN")
                 .build();
 
-        authorEntity = AuthorEntity.builder()
+        author = Author.builder()
                 .id(1L)
                 .fullName("Trinh Trong Quat")
                 .dob(LocalDate.parse("1999-11-25"))
                 .address("HN")
                 .build();
 
-        request = BookDto.builder()
+        request = BookCreationRequest.builder()
                 .title("Chieu toi")
                 .releaseDate(LocalDate.parse("1999-11-25"))
                 .author(authorDto)
                 .build();
 
-        book1 = BookEntity.builder()
+        book1 = Book.builder()
                 .id(1L)
                 .title("Chieu toi")
                 .releaseDate(LocalDate.parse("1999-11-25"))
-                .author(authorEntity)
+                .author(author)
                 .build();
 
-        book2 = BookEntity.builder()
+        book2 = Book.builder()
                 .id(2L)
                 .title("B")
                 .releaseDate(LocalDate.parse("2000-11-25"))
-                .author(authorEntity)
+                .author(author)
                 .build();
 
         bookEntities = Arrays.asList(book1, book2);
@@ -88,7 +89,7 @@ public class BookServiceTest {
         Mockito.when(bookRepository.save(Mockito.any())).thenReturn(book1);
 
         // WHEN
-        BookDto result = bookService.createBook(request);
+        BookResponse result = iBookService.createBook(request);
 
         // THEN
         Assertions.assertThat(result.getTitle()).isEqualTo("Chieu toi");
@@ -99,12 +100,12 @@ public class BookServiceTest {
     void createBook_bookExisted_fail() {
         // GIVEN
         Mockito.when(authorRepository.findByFullNameAndDob(Mockito.anyString(), Mockito.any()))
-                .thenReturn(Optional.of(authorEntity));
+                .thenReturn(Optional.of(author));
         Mockito.when(bookRepository.existsByTitle(Mockito.anyString())).thenReturn(true);
 
         // WHEN
         var exception = org.junit.jupiter.api.Assertions.assertThrows(
-                AppException.class, () -> bookService.createBook(request));
+                AppException.class, () -> iBookService.createBook(request));
 
         // THEN
         Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1004);
@@ -116,7 +117,7 @@ public class BookServiceTest {
         Mockito.when(bookRepository.findAll()).thenReturn(bookEntities);
 
         // WHEN
-        List<BookDto> result = bookService.getAllBooks();
+        List<BookResponse> result = iBookService.getAllBooks();
 
         // THEN
         Assertions.assertThat(result.size()).isEqualTo(2);

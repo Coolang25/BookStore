@@ -1,13 +1,19 @@
 package com.trinity.bookstore.mapper;
 
+import com.trinity.bookstore.dto.request.AuthorUpdateRequest;
+import com.trinity.bookstore.dto.response.AuthorResponse;
 import org.mapstruct.Mapper;
 
-import com.trinity.bookstore.dto.AuthorDto;
-import com.trinity.bookstore.entity.AuthorEntity;
+import com.trinity.bookstore.dto.request.AuthorCreationRequest;
+import com.trinity.bookstore.entity.Author;
+import org.mapstruct.MappingTarget;
+
+import java.lang.annotation.Target;
 
 @Mapper(componentModel = "spring")
 public interface AuthorMapper {
-    AuthorEntity toAuthorEntity(AuthorDto request);
+    Author toAuthor(AuthorCreationRequest request);
+    AuthorResponse toAuthorResponse(Author author);
 
-    AuthorDto toAuthorDto(AuthorEntity authorEntity);
+    void updateAuthor(@MappingTarget Author author, AuthorUpdateRequest request);
 }
