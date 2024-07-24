@@ -1,12 +1,14 @@
 package com.trinity.bookstore.dto.request;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
@@ -14,13 +16,13 @@ import java.time.LocalDate;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthorUpdateRequest {
-    @NotBlank(message = "FULL_NAME_KEY")
+    @NotBlank(message = "INVALID_FULL_NAME")
     String fullName;
 
-    @NotNull(message = "DATE_KEY")
+    @NotNull(message = "INVALID_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     LocalDate dob;
 
-    @NotBlank(message = "ADDRESS_KEY")
+    @NotBlank(message = "INVALID_ADDRESS")
     String address;
 }

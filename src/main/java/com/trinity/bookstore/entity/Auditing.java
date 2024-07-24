@@ -1,11 +1,11 @@
-
 package com.trinity.bookstore.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "audits")
@@ -22,7 +22,7 @@ public class Auditing {
     @ManyToOne(cascade = CascadeType.ALL)
     User user;
 
-    String action; //ENUM('CREATE', 'UPDATE', 'DELETE'),
+    String action; // ENUM('CREATE', 'UPDATE', 'DELETE'),
     String table_name;
     String data;
     LocalDateTime created_at;

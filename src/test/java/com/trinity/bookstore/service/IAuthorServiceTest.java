@@ -3,7 +3,6 @@ package com.trinity.bookstore.service;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.trinity.bookstore.dto.response.AuthorResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 
 import com.trinity.bookstore.dto.request.AuthorCreationRequest;
+import com.trinity.bookstore.dto.response.AuthorResponse;
 import com.trinity.bookstore.entity.Author;
 import com.trinity.bookstore.entity.Book;
 import com.trinity.bookstore.exception.AppException;

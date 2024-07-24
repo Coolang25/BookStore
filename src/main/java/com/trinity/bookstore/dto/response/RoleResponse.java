@@ -1,4 +1,4 @@
-package com.trinity.bookstore.dto.request;
+package com.trinity.bookstore.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PermissionRequest {
+public class RoleResponse {
     String name;
-    String description;
 }

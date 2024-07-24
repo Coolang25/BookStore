@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.trinity.bookstore.dto.request.BookUpdateRequest;
-import com.trinity.bookstore.dto.response.BookResponse;
 import org.springframework.stereotype.Service;
 
 import com.trinity.bookstore.dto.request.BookCreationRequest;
+import com.trinity.bookstore.dto.request.BookUpdateRequest;
+import com.trinity.bookstore.dto.response.BookResponse;
 import com.trinity.bookstore.entity.Author;
 import com.trinity.bookstore.entity.Book;
 import com.trinity.bookstore.exception.AppException;
@@ -59,15 +59,13 @@ public class BookService implements IBookService {
 
     @Override
     public BookResponse getBook(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.BOOK_NOT_EXISTED));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BOOK_NOT_EXISTED));
         return bookMapper.toBookResponse(book);
     }
 
     @Override
     public BookResponse updateBook(Long id, BookUpdateRequest request) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.BOOK_NOT_EXISTED));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BOOK_NOT_EXISTED));
 
         bookMapper.updateBook(book, request);
 
@@ -76,8 +74,7 @@ public class BookService implements IBookService {
 
     @Override
     public String deleteBook(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.BOOK_NOT_EXISTED));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BOOK_NOT_EXISTED));
         book.setDeleted(true);
 
         return "Delete book successfully";

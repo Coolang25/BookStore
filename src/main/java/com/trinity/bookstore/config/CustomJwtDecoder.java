@@ -14,9 +14,8 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
 import com.nimbusds.jose.JOSEException;
-
-import edu.quattrinh.webservice.dto.request.IntrospectRequest;
-import edu.quattrinh.webservice.service.AuthenticationService;
+import com.trinity.bookstore.dto.request.IntrospectRequest;
+import com.trinity.bookstore.service.IAuthenticationService;
 
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
@@ -24,7 +23,7 @@ public class CustomJwtDecoder implements JwtDecoder {
     private String signerKey;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private IAuthenticationService authenticationService;
 
     private NimbusJwtDecoder nimbusJwtDecoder = null;
 

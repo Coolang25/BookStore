@@ -11,9 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import edu.quattrinh.webservice.dto.request.ApiResponse;
-import edu.quattrinh.webservice.exception.ErrorCode;
+import com.trinity.bookstore.dto.response.ApiResponse;
+import com.trinity.bookstore.exception.ErrorCode;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override

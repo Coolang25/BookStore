@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import com.trinity.bookstore.dto.response.BookResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import com.trinity.bookstore.dto.request.AuthorCreationRequest;
 import com.trinity.bookstore.dto.request.BookCreationRequest;
+import com.trinity.bookstore.dto.response.BookResponse;
 import com.trinity.bookstore.entity.Author;
 import com.trinity.bookstore.entity.Book;
 import com.trinity.bookstore.exception.AppException;

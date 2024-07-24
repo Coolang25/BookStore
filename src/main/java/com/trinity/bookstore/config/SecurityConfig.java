@@ -14,9 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -49,18 +46,18 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:3000");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
-
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-
-        return new CorsFilter(urlBasedCorsConfigurationSource);
-    }
+    //    @Bean
+    //    public CorsFilter corsFilter() {
+    //        CorsConfiguration corsConfiguration = new CorsConfiguration();
+    //        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+    //        corsConfiguration.addAllowedMethod("*");
+    //        corsConfiguration.addAllowedHeader("*");
+    //
+    //        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+    //        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+    //
+    //        return new CorsFilter(urlBasedCorsConfigurationSource);
+    //    }
 
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {

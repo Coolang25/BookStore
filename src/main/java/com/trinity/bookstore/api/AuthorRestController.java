@@ -3,14 +3,14 @@ package com.trinity.bookstore.api;
 import java.util.List;
 import java.util.Set;
 
-import com.trinity.bookstore.dto.request.AuthorUpdateRequest;
-import com.trinity.bookstore.dto.response.AuthorResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.trinity.bookstore.dto.response.ApiResponse;
 import com.trinity.bookstore.dto.request.AuthorCreationRequest;
+import com.trinity.bookstore.dto.request.AuthorUpdateRequest;
+import com.trinity.bookstore.dto.response.ApiResponse;
+import com.trinity.bookstore.dto.response.AuthorResponse;
 import com.trinity.bookstore.service.IAuthorService;
 
 import lombok.AccessLevel;
@@ -52,7 +52,7 @@ public class AuthorRestController {
                 .build();
     }
 
-    @PostMapping ("/{id}")
+    @PostMapping("/{id}")
     ApiResponse<AuthorResponse> updateAuthor(@PathVariable Long id, @RequestBody @Valid AuthorUpdateRequest request) {
         return ApiResponse.<AuthorResponse>builder()
                 .result(iAuthorService.updateAuthor(id, request))

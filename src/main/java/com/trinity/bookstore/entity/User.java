@@ -1,6 +1,7 @@
 package com.trinity.bookstore.entity;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -22,4 +23,6 @@ public class User {
 
     @ManyToOne(cascade = CascadeType.ALL)
     Role role;
+
+    boolean deleted;
 }

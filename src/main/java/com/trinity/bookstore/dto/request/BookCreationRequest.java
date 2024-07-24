@@ -17,17 +17,17 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookCreationRequest {
-    @NotBlank(message = "TITLE_KEY")
+    @NotBlank(message = "INVALID_TITLE")
     String title;
 
     @NotNull
     @Valid
     AuthorCreationRequest author;
 
-    @NotNull(message = "DATE_KEY")
+    @NotNull(message = "INVALID_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     LocalDate releaseDate;
 
-    @NotBlank(message = "QUANTITY_KEY")
+    @NotBlank(message = "INVALID_QUANTITY")
     int quantity;
 }

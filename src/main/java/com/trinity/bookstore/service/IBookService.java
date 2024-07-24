@@ -16,5 +16,4 @@ public interface IBookService {
     BookResponse updateBook(Long id, BookUpdateRequest request);
 
     String deleteBook(Long id);
-
 }

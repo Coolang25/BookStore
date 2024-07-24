@@ -5,11 +5,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.trinity.bookstore.dto.request.AuthorUpdateRequest;
-import com.trinity.bookstore.dto.response.AuthorResponse;
 import org.springframework.stereotype.Service;
 
 import com.trinity.bookstore.dto.request.AuthorCreationRequest;
+import com.trinity.bookstore.dto.request.AuthorUpdateRequest;
+import com.trinity.bookstore.dto.response.AuthorResponse;
 import com.trinity.bookstore.entity.Author;
 import com.trinity.bookstore.entity.Book;
 import com.trinity.bookstore.exception.AppException;
@@ -57,15 +57,13 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public AuthorResponse getAuthor(Long id) {
-        Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.AUTHOR_NOT_EXISTED));
+        Author author = authorRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.AUTHOR_NOT_EXISTED));
         return authorMapper.toAuthorResponse(author);
     }
 
     @Override
     public AuthorResponse updateAuthor(Long id, AuthorUpdateRequest request) {
-        Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.AUTHOR_NOT_EXISTED));
+        Author author = authorRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.AUTHOR_NOT_EXISTED));
         authorMapper.updateAuthor(author, request);
 
         return authorMapper.toAuthorResponse(authorRepository.save(author));

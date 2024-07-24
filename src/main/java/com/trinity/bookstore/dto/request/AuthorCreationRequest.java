@@ -16,13 +16,13 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthorCreationRequest {
-    @NotBlank(message = "FULL_NAME_KEY")
+    @NotBlank(message = "INVALID_FULL_NAME")
     String fullName;
 
-    @NotNull(message = "DATE_KEY")
+    @NotNull(message = "INVALID_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     LocalDate dob;
 
-    @NotBlank(message = "ADDRESS_KEY")
+    @NotBlank(message = "INVALID_ADDRESS")
     String address;
 }

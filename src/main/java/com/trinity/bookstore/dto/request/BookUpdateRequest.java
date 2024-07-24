@@ -1,13 +1,14 @@
 package com.trinity.bookstore.dto.request;
 
-import jakarta.validation.Valid;
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
@@ -15,13 +16,13 @@ import java.time.LocalDate;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookUpdateRequest {
-    @NotNull(message = "DATE_KEY")
+    @NotNull(message = "INVALID_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     LocalDate releaseDate;
 
-    @NotBlank(message = "QUANTITY_KEY")
+    @NotBlank(message = "INVALID_QUANTITY")
     int quantity;
 
-    @NotBlank(message = "AVAILABLE_KEY")
+    @NotBlank(message = "INVALID_AVAILABLE")
     int available;
 }

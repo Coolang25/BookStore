@@ -2,14 +2,14 @@ package com.trinity.bookstore.api;
 
 import java.util.List;
 
-import com.trinity.bookstore.dto.request.BookUpdateRequest;
-import com.trinity.bookstore.dto.response.BookResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.trinity.bookstore.dto.response.ApiResponse;
 import com.trinity.bookstore.dto.request.BookCreationRequest;
+import com.trinity.bookstore.dto.request.BookUpdateRequest;
+import com.trinity.bookstore.dto.response.ApiResponse;
+import com.trinity.bookstore.dto.response.BookResponse;
 import com.trinity.bookstore.service.IBookService;
 
 import lombok.AccessLevel;
@@ -44,17 +44,15 @@ public class BookRestController {
                 .build();
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     ApiResponse<BookResponse> updateBook(@PathVariable Long id, @RequestBody @Valid BookUpdateRequest request) {
         return ApiResponse.<BookResponse>builder()
                 .result(iBookService.updateBook(id, request))
                 .build();
     }
 
-    @DeleteMapping ("/{id}")
+    @DeleteMapping("/{id}")
     ApiResponse<String> deleteBook(@PathVariable Long id) {
-        return ApiResponse.<String>builder()
-                .result(iBookService.deleteBook(id))
-                .build();
+        return ApiResponse.<String>builder().result(iBookService.deleteBook(id)).build();
     }
 }
