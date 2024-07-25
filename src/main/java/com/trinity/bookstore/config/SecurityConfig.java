@@ -19,8 +19,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final String[] PUBLIC_ENDPOINT = {
-        "/users", "/auth/token", "/auth/introspect", "/auth/logout", "/auth/refresh"
+    private final String[] POST_PUBLIC_ENDPOINT = {
+        "/users", "/auth/login", "/auth/refresh"
+    };
+    private final String[] GET_PUBLIC_ENDPOINT = {
+            "/books", "/books/*", "/authors", "/authors/*"
     };
 
     @Value("${jwt.signerKey}")
@@ -32,11 +35,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINT)
-                        .permitAll()
-                        // .requestMatchers(HttpMethod.GET, "/users").hasRole(Role.ADMIN.name())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.POST, POST_PUBLIC_ENDPOINT)
+                            .permitAll()
+                        .requestMatchers(HttpMethod.GET, GET_PUBLIC_ENDPOINT)
+                            .permitAll()
                         .anyRequest()
-                        .authenticated())
+                            .authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
                                 .decoder(customJwtDecoder)
                                 .jwtAuthenticationConverter(jwtAuthenticationConverter()))

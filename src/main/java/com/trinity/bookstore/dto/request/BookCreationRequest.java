@@ -3,6 +3,7 @@ package com.trinity.bookstore.dto.request;
 import java.time.LocalDate;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -28,6 +29,7 @@ public class BookCreationRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     LocalDate releaseDate;
 
-    @NotBlank(message = "INVALID_QUANTITY")
+    //@NotBlank(message = "INVALID_QUANTITY")
+    @Min(value = 1, message = "INVALID_QUANTITY")
     int quantity;
 }

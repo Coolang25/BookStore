@@ -1,0 +1,14 @@
+package com.trinity.bookstore.dto.request;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class BorrowingRequest {
+    Long userId;
+    Long bookId;
+}

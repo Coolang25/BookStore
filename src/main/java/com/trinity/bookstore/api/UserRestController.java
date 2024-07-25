@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.trinity.bookstore.dto.request.UserCreationRequest;
@@ -32,6 +33,7 @@ public class UserRestController {
                 .build();
     }
 
+    @PreAuthorize("hasRole('LIBRARIAN')")
     @GetMapping
     ApiResponse<List<UserResponse>> getUsers() {
         return ApiResponse.<List<UserResponse>>builder()
@@ -39,6 +41,7 @@ public class UserRestController {
                 .build();
     }
 
+    @PreAuthorize("hasRole('LIBRARIAN')")
     @GetMapping("/{userId}")
     ApiResponse<UserResponse> getUser(@PathVariable Long userId) {
         return ApiResponse.<UserResponse>builder()
@@ -60,6 +63,7 @@ public class UserRestController {
                 .build();
     }
 
+    @PreAuthorize("hasRole('LIBRARIAN')")
     @DeleteMapping("/{userId}")
     String deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);

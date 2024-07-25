@@ -11,8 +11,6 @@ import com.trinity.bookstore.dto.response.ApiResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final String MIN_ATTRIBUTE = "min";
-
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<ApiResponse> handlingException(Exception exception) {
 

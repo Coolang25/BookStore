@@ -19,12 +19,15 @@ public enum ErrorCode {
     INVALID_ADDRESS(1010, "Address field is required", HttpStatus.BAD_REQUEST),
     INVALID_AVAILABLE(1011, "Available field is required", HttpStatus.BAD_REQUEST),
     INVALID_QUANTITY(1012, "Quantity field is required", HttpStatus.BAD_REQUEST),
-    INVALID_EMAIL(1013, "Email field is required", HttpStatus.BAD_REQUEST),
+    INVALID_EMAIL(1013, "Email field is required and has *@*.* format ", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(1014, "Password must be at least 8 characters", HttpStatus.BAD_REQUEST),
     DATE_INCORRECT_FORMAT(1015, "Date is not incorrect format", HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(1016, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1017, "Unauthorized", HttpStatus.FORBIDDEN),
     USER_NOT_EXISTED(1018, "User not existed", HttpStatus.NOT_FOUND),
+    USER_EXISTED(1019, "User existed", HttpStatus.BAD_REQUEST),
+    USER_NOT_BORROW_BOOK(1020, "User didn't borrow this book", HttpStatus.OK),
+    USER_RETURNED_BOOK(1021, "User returned this book", HttpStatus.OK),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

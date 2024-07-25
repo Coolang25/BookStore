@@ -27,4 +27,6 @@ public class Borrowing {
 
     LocalDateTime borrowDate;
     LocalDateTime returnDate;
+
+    boolean returned;
 }

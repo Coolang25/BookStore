@@ -13,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookResponse {
+    Long id;
     String title;
     AuthorCreationRequest author;
     LocalDate releaseDate;

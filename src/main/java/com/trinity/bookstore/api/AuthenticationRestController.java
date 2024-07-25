@@ -2,6 +2,7 @@ package com.trinity.bookstore.api;
 
 import java.text.ParseException;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class AuthenticationRestController {
         return ApiResponse.<AuthenticationResponse>builder().result(result).build();
     }
 
+    @PreAuthorize("hasRole('LIBRARIAN')")
     @PostMapping("/introspect")
     ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
             throws ParseException, JOSEException {

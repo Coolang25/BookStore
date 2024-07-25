@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.trinity.bookstore.dto.request.AuthorCreationRequest;
@@ -24,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 public class AuthorRestController {
     IAuthorService iAuthorService;
 
+    @PreAuthorize("hasRole('LIBRARIAN')")
     @PostMapping
     ApiResponse<AuthorResponse> createAuthor(@Valid @RequestBody AuthorCreationRequest request) {
         return ApiResponse.<AuthorResponse>builder()
@@ -52,6 +54,7 @@ public class AuthorRestController {
                 .build();
     }
 
+    @PreAuthorize("hasRole('LIBRARIAN')")
     @PostMapping("/{id}")
     ApiResponse<AuthorResponse> updateAuthor(@PathVariable Long id, @RequestBody @Valid AuthorUpdateRequest request) {
         return ApiResponse.<AuthorResponse>builder()
