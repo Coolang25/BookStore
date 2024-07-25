@@ -43,6 +43,10 @@ public class BorrowingService implements IBorrowingService {
             throw new AppException(ErrorCode.UNAUTHORIZED);
         }
 
+        if(book.getAvailable() == 0) {
+            throw new AppException(ErrorCode.BOOK_NOT_AVAILABLE);
+        }
+
         book.setAvailable(book.getAvailable() - 1);
 
         Borrowing borrowing = Borrowing.builder()

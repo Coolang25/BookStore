@@ -28,6 +28,7 @@ public enum ErrorCode {
     USER_EXISTED(1019, "User existed", HttpStatus.BAD_REQUEST),
     USER_NOT_BORROW_BOOK(1020, "User didn't borrow this book", HttpStatus.OK),
     USER_RETURNED_BOOK(1021, "User returned this book", HttpStatus.OK),
+    BOOK_NOT_AVAILABLE(1022, "Book isn't available", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
