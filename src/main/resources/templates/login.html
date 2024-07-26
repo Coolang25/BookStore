@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}"></head>
+
+<body>
+    <header th:replace="~{fragments::header}"></header>
+
+    <section id="login-form">
+        <div class="noi-dung">
+            <div class="form">
+                <h2>Log In</h2>
+                <div th:if = "${param.error}" class="alert alert-danger text-center">
+                    Invalid username or password
+                </div>
+                <div th:if = "${param.logout}" class="alert alert-success text-center">
+                    You have been logged out!
+                </div>
+                <form th:action="@{/do-login}" method="post">
+                    <div class="input-form">
+                        <input type="text" placeholder="Name" name="username" required>
+                    </div>
+                    <div class="input-form">
+                        <input type="password" placeholder="Password" name="password">
+                    </div>
+                    <div class="input-form">
+                        <input type="submit" value="Log In">
+                    </div>
+                    <div class="input-form">
+                        <p>Do You Already Have An Account ? <a th:href="@{/register}">Sign up now  </a></p>
+                    </div>
+                </form>
+                <h3>Log In With Social Network</h3>
+                <ul class="icon-dang-nhap">
+                    <li><i class="fab fa-facebook-f"></i></i></li>
+                    <li><a th:href="@{/oauth2/authorization/google}"><i class="fab fa-google"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+    <footer th:replace="~{fragments::footer}"></footer>
+
+    <div th:replace="~{fragments::script}"></div>
+</body>
+
+</html>

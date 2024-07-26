@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 @Data
 @Builder
@@ -43,10 +44,4 @@ public class User {
     @Column(name = "modified_date")
     @LastModifiedDate
     LocalDateTime modifiedDate;
-
-    @CreatedBy
-    String created_by;
-
-    @LastModifiedBy
-    String modified_by;
 }

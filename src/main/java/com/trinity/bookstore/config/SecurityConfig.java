@@ -23,7 +23,7 @@ public class SecurityConfig {
         "/users", "/auth/login", "/auth/refresh"
     };
     private final String[] GET_PUBLIC_ENDPOINT = {
-            "/books", "/books/*", "/authors", "/authors/*"
+            "/books", "/books/*", "/authors", "/authors/*", "/authorList", "/", "/css/**", "/js/**"
     };
 
     @Value("${jwt.signerKey}")

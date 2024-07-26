@@ -1,31 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Book Store</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-</head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}"></head>
 <body>
-    <header class="d-inline-block">
-        <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Book Store</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Book</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/authorList">Author</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header th:replace="~{fragments::header}"></header>
+
     <div class="container mt-5">
         <br>
         <h1 class="text-center">DANH MỤC SÁCH</h1>
@@ -89,14 +67,10 @@
         </div>
     </div>
 
-    <footer class="border-top text-center pt-3 pb-3 fixed-bottom bg-secondary">
-        <div class="">
-            &copy; 2024 - Book Store
-        </div>
-    </footer>
+    <footer th:replace="~{fragments::footer}"></footer>
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js" ></script>
+    <div th:replace="~{fragments::script}"></div>
+
     <script src="/js/book.js" ></script>
 </body>
 </html>

@@ -8,11 +8,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String book() {
-        return "book.html";
+        return "book";
     }
 
     @GetMapping("/authorList")
     public String author() {
-        return "author.html";
+        return "author";
     }
 }
