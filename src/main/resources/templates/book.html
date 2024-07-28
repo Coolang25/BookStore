@@ -2,20 +2,23 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments::head}"></head>
 <body>
-    <header th:replace="~{fragments::header}"></header>
+    <nav th:replace="~{fragments::nav}"></nav>
 
+    <br>
     <div class="container mt-5">
         <br>
         <h1 class="text-center">DANH MỤC SÁCH</h1>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Thêm sách
-        </button>
+        <div id="add_button"></div>
+        <h5 id="success" class="text-info"></h5>
+        <h5 id="fail" class="text-danger"></h5>
         <table class="table table-striped mt-3 table-responsive">
             <thead>
             <tr>
                 <th scope="col">Tên sách</th>
                 <th scope="col">Ngày xuất bản</th>
                 <th scope="col">Tác giả</th>
+                <th scope="col">Có sẵn</th>
+                <th scope="col">Hành động</th>
             </tr>
             </thead>
             <tbody id="root">
@@ -41,10 +44,6 @@
                                 <input type="text" class="form-control" id="title" required>
                             </div>
                             <div class="mb-2">
-                                <label for="releaseDate" class="form-label">Ngày xuất bản</label>
-                                <input type="text" class="form-control" id="releaseDate" required placeholder="yyyy-MM-dd">
-                            </div>
-                            <div class="mb-2">
                                 <label for="fullName" class="form-label">Tên tác giả</label>
                                 <input type="text" class="form-control" id="fullName" required>
                             </div>
@@ -55,6 +54,14 @@
                             <div class="mb-2">
                                 <label for="address" class="form-label">Địa chỉ tác giả</label>
                                 <input type="text" class="form-control" id="address" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="releaseDate" class="form-label">Ngày xuất bản</label>
+                                <input type="text" class="form-control" id="releaseDate" required placeholder="yyyy-MM-dd">
+                            </div>
+                            <div class="mb-2">
+                                <label for="quantity" class="form-label">Số lượng</label>
+                                <input type="number" class="form-control" id="quantity" required>
                             </div>
                         </div>
                     </div>
@@ -71,6 +78,93 @@
 
     <div th:replace="~{fragments::script}"></div>
 
-    <script src="/js/book.js" ></script>
+    <script>
+        if (localStorage.getItem("role") == "LIBRARIAN") {
+            var html = `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm sách</button>`
+            $('#add_button').append(html);
+        }
+
+        $('document').ready(function () {
+            $.ajax({
+                url: 'http://localhost:8888/api/books',
+                type: 'GET',
+                dataType: 'json',
+            }).done(function(response) {
+                var html = "";
+                response.result.map((book) => {
+                    html += "<tr>\n" +
+                        `    <td>${book.title}</td>\n` +
+                        `    <td>${book.releaseDate}</td>\n` +
+                        `    <td>${book.author.fullName}</td>\n` +
+                        `    <td>${book.available}</td>\n` +
+                        `    <td><button id="${book.id}" onclick='borrowBook(this.id)'>Mượn sách</button></td>\n` +
+                        "</tr>\n";
+                })
+                $('#root').append(html);
+            });
+        })
+
+        function createBook() {
+            introspect();
+            $('#success-message').text("");
+            $('#fail-message').text("");
+
+            var title = $('#title').val();
+            var releaseDate = $('#releaseDate').val();
+            var fullName = $('#fullName').val();
+            var dob = $('#dob').val();
+            var address = $('#address').val();
+            var quantity = parseInt($('#quantity').val());
+
+            var request = {
+                title,
+                author: {
+                    fullName,
+                    dob,
+                    address
+                },
+                releaseDate,
+                quantity
+            }
+
+            $.ajax({
+                url: 'http://localhost:8888/api/books',
+                type: 'POST',
+                dataType: "json",
+                contentType: "application/json",
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                data: JSON.stringify(request),
+            }).done(function(response) {
+                $('#success-message').text("Thêm sách thành công");
+            }).fail(function(response) {
+                $('#fail-message').text(response.responseJSON.message);
+            });
+        }
+
+        function borrowBook(id) {
+            introspect();
+            $('#success').text("");
+            $('#fail').text("");
+
+            var request = {bookId: parseInt(id)}
+
+            $.ajax({
+                url: 'http://localhost:8888/api/books/borrow',
+                type: 'POST',
+                dataType: "json",
+                contentType: "application/json",
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                data: JSON.stringify(request),
+            }).done(function(response) {
+                $('#success').text("Mượn sách thành công");
+            }).fail(function(response) {
+                $('#fail').text(response.responseJSON.message);
+            });
+        }
+    </script>
 </body>
 </html>

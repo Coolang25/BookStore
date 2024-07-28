@@ -21,7 +21,7 @@ import lombok.experimental.FieldDefaults;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("authors")
+@RequestMapping("/api/authors")
 public class AuthorRestController {
     IAuthorService iAuthorService;
 

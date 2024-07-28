@@ -6,28 +6,24 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
 </head>
 <body>
-    <header th:fragment="header" class="d-inline-block">
-        <nav class="navbar navbar-expand-lg bg-secondary fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/}">Book Store</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/}">Book</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/authorList}">Author</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-white" href="/">BookStore</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="/">Book</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded text-white" href="/authors">Author</a></li>
+                    <li class="nav-item mx-0 mx-lg-1 dropdown" id="authentication">
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
-
-    <footer th:fragment="footer" class="border-top text-center pt-3 pb-3 fixed-bottom bg-secondary">
+        </div>
+    </nav>
+    <footer th:fragment="footer" class="border-top text-center pt-3 pb-3 fixed-bottom bg-secondary text-uppercase text-white">
         <div class="">
             &copy; 2024 - Book Store
         </div>
@@ -36,6 +32,77 @@
     <div th:fragment="script">
         <script src="/js/jquery.min.js"></script>
         <script src="/js/bootstrap.bundle.min.js" ></script>
+        <script>
+            var html = "";
+            if (localStorage.getItem("token") !== null) {
+                html = `<a class="nav-link py-3 px-0 px-lg-3 rounded text-white dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">${localStorage.getItem("full_name")}</a>\n` +
+                    `    <ul class="dropdown-menu">\n` +
+                    `    <li><a class="dropdown-item" href="/unreturned_books">List of unreturned books</a></li>\n` +
+                    `    <li><button class="dropdown-item text-uppercase" onclick="logout()">Logout</button></li>\n` +
+                    `</ul>`
+            } else {
+                html = `<a class="nav-link py-3 px-0 px-lg-3 rounded text-white dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Authentication</a>\n` +
+                    `    <ul class="dropdown-menu">\n` +
+                    `    <li><a class="dropdown-item" href="/login">Login</a></li>\n` +
+                    `    <li><a class="dropdown-item" href="/register">Sign up</a></li>\n` +
+                    `</ul>`
+            }
+
+            $('#authentication').append(html);
+
+
+            function logout() {
+                $.ajax({
+                    url: 'http://localhost:8888/api/auth/logout',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                }).done(function(response) {
+                    localStorage.clear();
+                    window.location.pathname = "/";
+                });
+            }
+
+            function refreshToken () {
+                $.ajax({
+                    url: 'http://localhost:8888/api/auth/refresh',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                }).done(function(res) {
+                    localStorage.setItem("token", res.result.token);
+                    localStorage.setItem("full_name", res.result.fullName);
+                    localStorage.setItem("role", res.result.role);
+                }).fail(function(res) {
+                    window.location.pathname="/login"
+                });
+            }
+
+            function introspect() {
+                if (localStorage.getItem("token") === null) {
+                    refreshToken();
+                } else {
+                    var request = {token: localStorage.getItem("token")}
+                    $.ajax({
+                        url: 'http://localhost:8888/api/auth/introspect',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem("token")}`
+                        },
+                        data: JSON.stringify(request)
+                    }).done(function(response) {
+                        if (response.result.valid === false) {
+                            refreshToken();
+                        }
+                    }).fail(function(response) {
+                        refreshToken();
+                    });
+                }
+            }
+        </script>
+
     </div>
 
 

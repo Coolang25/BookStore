@@ -29,16 +29,16 @@ public class CustomJwtDecoder implements JwtDecoder {
 
     @Override
     public Jwt decode(String token) throws JwtException {
-        try {
-            var response = authenticationService.introspect(
-                    IntrospectRequest.builder().token(token).build());
-
-            if (!response.isValid()) {
-                throw new JwtException("Token invalided");
-            }
-        } catch (JOSEException | ParseException e) {
-            throw new JwtException(e.getMessage());
-        }
+//        try {
+//            var response = authenticationService.introspect(
+//                    IntrospectRequest.builder().token(token).build());
+//
+//            if (!response.isValid()) {
+//                throw new JwtException("Token invalided");
+//            }
+//        } catch (JOSEException | ParseException e) {
+//            throw new JwtException(e.getMessage());
+//        }
 
         if (Objects.isNull(nimbusJwtDecoder)) {
             SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");

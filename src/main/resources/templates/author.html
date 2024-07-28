@@ -2,14 +2,13 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments::head}"></head>
 <body>
-    <header th:replace="~{fragments::header}"></header>
+    <nav th:replace="~{fragments::nav}"></nav>
 
+    <br>
     <div class="container mt-5">
         <br>
         <h1 class="text-center">DANH SÁCH TÁC GIẢ CÓ SÁCH ĐANG BÁN</h1>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Thêm tác giả
-        </button>
+        <div id="add_button"></div>
         <table class="table table-striped mt-3 table-responsive">
             <thead>
             <tr>
@@ -51,7 +50,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary" href="/authorList" id="reload">Quay lại trang tác giả</a>
+                        <a class="btn btn-primary" href="/authors" id="reload">Quay lại trang tác giả</a>
                         <button type="button" class="btn btn-primary" id="button" onclick="createAuthor()">Thêm</button>
                     </div>
                 </div>
@@ -63,6 +62,58 @@
 
     <div th:replace="~{fragments::script}"></div>
 
-    <script src="/js/author.js" ></script>
+    <script>
+
+        if (localStorage.getItem("role") == "LIBRARIAN") {
+            var html = `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm tác giả</button>`
+            $('#add_button').append(html);
+        }
+
+        $('document').ready(function () {
+            $.ajax({
+                url: 'http://localhost:8888/api/authors',
+                type: 'GET',
+                dataType: 'json',
+            }).done(function(response) {
+                var html = "";
+                response.result.map((author) => {
+                    html += "<tr>\n" +
+                        `    <td>${author.fullName}</td>\n` +
+                        `    <td>${author.dob}</td>\n` +
+                        `    <td>${author.address}</td>\n` +
+                        "</tr>\n";
+                })
+                $('#root').append(html);
+            });
+        })
+
+        function createAuthor() {
+            introspect();
+            $('#success-message').text("");
+            $('#fail-message').text("");
+
+            var fullName = $('#fullName').val();
+            var dob = $('#dob').val();
+            var address = $('#address').val();
+
+            var request = {fullName, dob, address};
+
+            $.ajax({
+                url: 'http://localhost:8888/api/authors',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                data: JSON.stringify(request),
+            }).done(function(response) {
+                $('#success-message').text("Thêm tác giả thành công");
+            }).fail(function(response) {
+                $('#fail-message').text(response.responseJSON.message);
+            });
+
+        }
+    </script>
 </body>
 </html>

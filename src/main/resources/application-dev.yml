@@ -21,5 +21,5 @@ springdoc:
 
 jwt:
   signerKey: "eckHkXTVgJ4afjvluzL4chCPtVqs2MtTNLoTQTE6KYjdk8J9QbeQ7V81r6iTUhjp"
-  valid-duration: 3600 # in second
+  valid-duration: 20 # in second
   refreshable-duration: 360000 # in second

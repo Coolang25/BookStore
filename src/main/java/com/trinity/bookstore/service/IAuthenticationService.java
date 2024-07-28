@@ -12,13 +12,16 @@ import com.trinity.bookstore.dto.response.AuthenticationResponse;
 import com.trinity.bookstore.dto.response.IntrospectResponse;
 
 public interface IAuthenticationService {
-    IntrospectResponse introspect(IntrospectRequest request) throws ParseException, JOSEException;
 
     AuthenticationResponse authenticate(AuthenticationRequest request);
 
-    void logout(LogoutRequest request) throws ParseException, JOSEException;
+    public String createRefreshToken(String email);
 
-    SignedJWT verifyToken(String token, boolean isRefresh) throws JOSEException, ParseException;
+    void logout(String token) throws ParseException, JOSEException;
 
-    AuthenticationResponse refreshToken(RefreshRequest request) throws ParseException, JOSEException;
+    AuthenticationResponse refreshToken(String token) throws ParseException, JOSEException;
+
+    void updateUserRefreshToken(String token, String email);
+
+    IntrospectResponse introspect(IntrospectRequest request) throws JOSEException, ParseException;
 }

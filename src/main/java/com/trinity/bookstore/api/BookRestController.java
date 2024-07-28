@@ -23,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("books")
+@RequestMapping("/api/books")
 public class BookRestController {
     IBookService iBookService;
     IBorrowingService borrowingService;
@@ -75,6 +75,13 @@ public class BookRestController {
     public ApiResponse<BorrowingResponse> returnBook(@RequestBody BorrowingRequest request) {
         return ApiResponse.<BorrowingResponse>builder()
                 .result(borrowingService.returnBook(request))
+                .build();
+    }
+
+    @GetMapping ("/unreturned")
+    public ApiResponse<List<BookResponse>> returnBook() {
+        return ApiResponse.<List<BookResponse>>builder()
+                .result(borrowingService.unReturnedBooks())
                 .build();
     }
 }

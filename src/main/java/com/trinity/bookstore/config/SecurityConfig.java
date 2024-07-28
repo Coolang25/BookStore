@@ -20,10 +20,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final String[] POST_PUBLIC_ENDPOINT = {
-        "/users", "/auth/login", "/auth/refresh"
+        "/api/users", "/api/auth/login", "/api/auth/refresh", "/api/auth/logout", "/api/auth/introspect"
     };
     private final String[] GET_PUBLIC_ENDPOINT = {
-            "/books", "/books/*", "/authors", "/authors/*", "/authorList", "/", "/css/**", "/js/**"
+            "/api/books", "/api/books/*", "/api/authors", "/api/authors/*", "/authorList", "/", "/css/**", "/js/**", "/books", "/authors", "/login", "/register", "/unreturned_books"
     };
 
     @Value("${jwt.signerKey}")

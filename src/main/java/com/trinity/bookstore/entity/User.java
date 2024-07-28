@@ -13,8 +13,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
 @NoArgsConstructor
@@ -33,6 +33,9 @@ public class User {
 
     @ManyToOne(cascade = CascadeType.ALL)
     Role role;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
+    String refreshToken;
 
     boolean deleted;
 
