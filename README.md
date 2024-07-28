@@ -18,5 +18,6 @@ Functionalities:
 - Logout API: Create a logout endpoint that invalidates the JWT (refresh token). Save invalidated refresh token in database.
 - CORS Configuration:
 - Remember Me Functionality: Save refresh token in HTTPOnly Cookie
-- Unit and Integration Tests: Incomplete 
+- Unit and Integration Tests: Incomplete
+- Using jQuery.ajax to call API
 
